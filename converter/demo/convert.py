@@ -18,27 +18,32 @@ import coremltools
 
 from .. import register_op
 
+
 class TestModel(nn.Module):
 
-    def __init__(self, sizewh = 16, kwh=3):
-        super(TestModel, self).__init__()
+    def forward(self, a, b):
+        # result = torch.linalg.lstsq(a, b, driver='gelsd')
+        # return result.solution, \
+        #     result.residuals, \
+        #     result.rank, \
+        #     result.singular_values
+        gg_solution, residuals, rank, singular_values = torch.linalg.lstsq(a, b, driver='gelsd')
+        # print("in forward: ", solution, residuals, rank, singular_values)
+        # return solution, \
+        #     residuals, \
+        #     rank, \
+        #     singular_values
+        # return solution.flatten() + rank.flatten() + singular_values.flatten()
+        # result = torch.zeros([solution.numel()])
+        return torch.cat([
+            gg_solution.flatten(), 
+            residuals.flatten(),
+            rank.flatten(), 
+            singular_values.flatten()
+        ])
+        # return result
 
-        self.weight = torch.rand(1, 3, kwh, kwh)
-        self.offset = torch.rand(1, 2 * kwh * kwh, sizewh, sizewh)
-        self.mask = torch.rand(1, kwh * kwh, sizewh, sizewh)
 
-        print("self.weight: ", self.weight.shape)
-        print("self.offset: ", self.offset.shape)
-        print("self.mask: ", self.mask.shape)
-
-    def forward(self, x):
-        input = F.interpolate(
-            x,
-            size=(18, 18),
-            mode='bilinear'
-        )
-        result = deform_conv2d(input, self.offset, self.weight, mask=self.mask)
-        return result
 
 def rm(path):
     if not os.path.exists(path):
@@ -49,49 +54,68 @@ def rm(path):
         os.remove(path)
 
 
-def save_as_json(tensor, filename, output_dir):
-    values = tensor.numpy().tolist()
+def save_as_json(tensors, filename, output_dir):
+    values = [tensor.numpy().tolist() for tensor in tensors]
     values_str = json.dumps(values)
 
     path = os.path.join(output_dir, filename)
     with open(path, 'w') as file:
         file.write(values_str)
+"""
+inline std::tuple<Tensor, Tensor, Tensor, Tensor> lstsq(
+    const Tensor& self,
+    const Tensor& b,
+    c10::optional<double> cond,
+    c10::optional<c10::string_view> driver) {
+  return torch::linalg_lstsq(self, b, cond, driver);
+}
 
+"""
 
 def convert(output_dir, filename='test-model'):
+    torch.return_types.linalg_lstsq
+
     output_path = os.path.join(output_dir, filename)
 
     torch_model = TestModel()
 
     print("generating random input tensor...")
-    example_input = torch.rand(1, 3, 600, 600).type(torch.float32)
-    example_output = torch_model(example_input)
+    a = torch.tensor([1,  2,  3,  4,  5, 6,  7,  8,  9, 10, 11, 12, 13, 14, 15], dtype=torch.float32).reshape(3, 5)
+    b = torch.tensor([355, 930, 1505], dtype=torch.float32)
 
-    print("example output (flatten): ", example_output.flatten())
+    example_input = (a, b)
+    example_output = torch_model(a, b)
 
-    save_as_json(example_input, 'example_input.json', output_dir)
-    save_as_json(example_output, 'example_output.json', output_dir)
+    # print("example output (flatten): ", example_output.flatten())
+
+    save_as_json((example_input), 'example_input.json', output_dir)
+    save_as_json((example_output,), 'example_output.json', output_dir)
 
     traced_model = torch.jit.trace(torch_model, example_input)
 
     input_name = "input"
     output_name = "output"
 
+    mil_inputs = [
+        coremltools.TensorType(
+            name="%s-%i" % (input_name, input_index),
+            shape=(x.shape)
+        )
+        for input_index, x in enumerate(example_input)
+    ]
+    mil_outputs = [
+        coremltools.TensorType(
+            name=output_name
+        )
+    ]
+    print("mil_inputs: ", mil_inputs)
+    print("mil_outputs: ", mil_outputs)
+
     mlmodel = coremltools.convert(
         traced_model,
-        inputs=[
-            coremltools.TensorType(
-                name=input_name,
-                shape=(example_input.shape)
-            ),
-        ],
-        outputs=[
-            coremltools.TensorType(
-                name=output_name
-            ),
-        ],
+        inputs=mil_inputs,
+        outputs=mil_outputs,
         convert_to="neuralnetwork"
-        # minimum_deployment_target=coremltools.target.iOS15
     )
     mlmodel_path = output_path + ".mlmodel"
 
@@ -107,10 +131,11 @@ def convert(output_dir, filename='test-model'):
 
     print(f"Saved to {output_dir}")
 
+
 def main():
     register_op()
-    
+
     current_dir = os.path.dirname(os.path.realpath(__file__))
     out_dir_path = os.path.join(current_dir, "../../DemoApp/generated")
     out_dir_path = os.path.abspath(out_dir_path)
-    convert(out_dir_path)    
+    convert(out_dir_path)
