@@ -35,9 +35,17 @@ class TestModel(nn.Module):
         #     singular_values
         # return solution.flatten() + rank.flatten() + singular_values.flatten()
         # result = torch.zeros([solution.numel()])
+        # sizeInfo = torch.zeros(4, 1)
+        # sizeInfo[0] = gg_solution.numel()
+        # sizeInfo[1] = residuals.numel()
+        # sizeInfo[2] = rank.numel()
+        # sizeInfo[3] = singular_values.numel()
+
         return torch.cat([
+            # sizeInfo.flatten(),
+            
             gg_solution.flatten(), 
-            residuals.flatten(),
+            # residuals.flatten(),
             rank.flatten(), 
             singular_values.flatten()
         ])
@@ -86,7 +94,7 @@ def convert(output_dir, filename='test-model'):
     example_input = (a, b)
     example_output = torch_model(a, b)
 
-    # print("example output (flatten): ", example_output.flatten())
+    print("example output: ", example_output)
 
     save_as_json((example_input), 'example_input.json', output_dir)
     save_as_json((example_output,), 'example_output.json', output_dir)
