@@ -1,3 +1,4 @@
+# python3 -m pip install git+ssh://git@github.com/dneprDroid/DeformConv2d-Metal.git
 from setuptools import find_packages, setup
 
 name = "DeformConv2dConvert"

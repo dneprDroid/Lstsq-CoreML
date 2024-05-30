@@ -31,6 +31,8 @@
 		CE1DE7322C0250F0001E19F2 /* example_output.json in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2C2C023ACA006F4F1C /* example_output.json */; };
 		CE1DE7332C025102001E19F2 /* example_input.json in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2B2C023ACA006F4F1C /* example_input.json */; };
 		CE6711662C033E4A000B5F7D /* MLModelTestWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6711652C033E4A000B5F7D /* MLModelTestWorker.swift */; };
+		CE9BBDA92C07A56000CA07ED /* gels-test.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9BBDA82C07A56000CA07ED /* gels-test.m */; };
+		CE9BBDAD2C07A73700CA07ED /* liblapacke-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9BBDAC2C07A73700CA07ED /* liblapacke-iOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,6 +79,9 @@
 		CE1DE7212C024FA7001E19F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE1DE7262C024FA7001E19F2 /* Test_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Test_macOS.entitlements; sourceTree = "<group>"; };
 		CE6711652C033E4A000B5F7D /* MLModelTestWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModelTestWorker.swift; sourceTree = "<group>"; };
+		CE9BBDA72C07A55F00CA07ED /* Test-iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Test-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		CE9BBDA82C07A56000CA07ED /* gels-test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "gels-test.m"; sourceTree = "<group>"; };
+		CE9BBDAC2C07A73700CA07ED /* liblapacke-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "liblapacke-iOS.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +90,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE017C1D2C02380C006F4F1C /* DeformConv2dMetal in Frameworks */,
+				CE9BBDAD2C07A73700CA07ED /* liblapacke-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +108,7 @@
 		CE017BD52C0235D3006F4F1C = {
 			isa = PBXGroup;
 			children = (
+				CE9BBDAC2C07A73700CA07ED /* liblapacke-iOS.a */,
 				CE017C1A2C0237FA006F4F1C /* DeformConv2d-Metal */,
 				CE017C152C023794006F4F1C /* Test-iOS */,
 				CE017C332C02483E006F4F1C /* Common */,
@@ -144,7 +151,9 @@
 				CE017C132C023794006F4F1C /* DemoApp.swift */,
 				CE017C122C023794006F4F1C /* MainView.swift */,
 				CE017C202C023A4B006F4F1C /* ViewModel.swift */,
+				CE9BBDA82C07A56000CA07ED /* gels-test.m */,
 				CE6711652C033E4A000B5F7D /* MLModelTestWorker.swift */,
+				CE9BBDA72C07A55F00CA07ED /* Test-iOS-Bridging-Header.h */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -252,6 +261,7 @@
 				TargetAttributes = {
 					CE017BDD2C0235D3006F4F1C = {
 						CreatedOnToolsVersion = 15.3;
+						LastSwiftMigration = 1530;
 					};
 					CE1DE71A2C024FA5001E19F2 = {
 						CreatedOnToolsVersion = 15.3;
@@ -314,6 +324,7 @@
 				CE017C362C0248DD006F4F1C /* NdArrayUtil.swift in Sources */,
 				CE017C382C024916006F4F1C /* MLMultiArray+NdArray.swift in Sources */,
 				CE017C182C023794006F4F1C /* MainView.swift in Sources */,
+				CE9BBDA92C07A56000CA07ED /* gels-test.m in Sources */,
 				CE6711662C033E4A000B5F7D /* MLModelTestWorker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,6 +467,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Test-iOS/Resources/Preview Content\"";
@@ -472,10 +484,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dneprdroid.app.DemoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Test-iOS/Sources/Test-iOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -486,6 +504,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Test-iOS/Resources/Preview Content\"";
@@ -502,10 +521,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dneprdroid.app.DemoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Test-iOS/Sources/Test-iOS-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
