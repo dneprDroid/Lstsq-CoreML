@@ -19,29 +19,39 @@ final class MLModelTestWorker {
     func test() async throws {
         await onUpdateState(.loadingModel)
         
-        guard let modelUrl = Bundle.main.url(forResource: "test-model.mlmodel.pb", withExtension: nil) else {
-            fatalError("Can't find ML model")
-        }
-        let compiledUrl = try MLModel.compileModel(at: modelUrl)
-        defer {
-            try? FileManager.default.removeItem(at: compiledUrl)
-        }
-        
+//        guard let modelUrl = Bundle.main.url(forResource: "test-model.mlmodel.pb", withExtension: nil) else {
+//            fatalError("Can't find ML model")
+//        }
+//        print("1 loading model....")
+//        let compiledUrl = try MLModel.compileModel(at: modelUrl)
+//        defer {
+//            try? FileManager.default.removeItem(at: compiledUrl)
+//        }
+//        print("2")
+
         let configuration = MLModelConfiguration()
-        configuration.computeUnits = .cpuAndGPU
+        configuration.computeUnits = .cpuOnly
         
         configuration.allowLowPrecisionAccumulationOnGPU = false
+        print("3")
 
-        let model = try MLModel(contentsOf: compiledUrl, configuration: configuration)
-        
+//        let model = try MLModel(contentsOf: compiledUrl, configuration: configuration)
+        let model = try test_model(configuration: configuration).model
+        print("4")
+
         print("loading example inputs/outputs from JSON files...")
         
         await onUpdateState(.loadingExampleTensors)
 
-        let (exampleInputTensor, _) = try NdArrayUtil.readTensor(resource: "example_input.json", type: NdArray4d.self)
-        let (_, exampleOutputArray) = try NdArrayUtil.readTensor(resource: "example_output.json", type: NdArray4d.self)
+        let (exampleInputTensorA, _) = try NdArrayUtil.readTensor(resource: "example_input_a.json", type: NdArray2d.self)
+        print("5")
 
-        let input = Input(input: exampleInputTensor)
+        let (exampleInputTensorB, _) = try NdArrayUtil.readTensor(resource: "example_input_b.json", type: NdArray1d.self)
+        print("6")
+
+        let (_, exampleOutputArray) = try NdArrayUtil.readTensor(resource: "example_output.json", type: NdArray2d.self)
+
+        let input = Input(a: exampleInputTensorA, b: exampleInputTensorB)
         
         print("loaded")
         
@@ -57,12 +67,12 @@ final class MLModelTestWorker {
 
         assert(output.dataType == .float32)
         
-        let outputArray = output.toNdArray4d()
+//        let outputArray = output.toNdArray2d()
         let flattenArray = output.toFlattenArray(for: Float32.self)
         print("calculated output (flatten tensor): ", flattenArray)
         
         let isOk = NdArrayUtil.validate(
-            actual: outputArray,
+            actual: .init(value: [flattenArray]),
             expected: exampleOutputArray
         )
         await onUpdateState(.completed(ok: isOk))
@@ -73,22 +83,25 @@ extension MLModelTestWorker {
 
     final class Input: MLFeatureProvider {
         
-        let featureNames: Set<String> = ["input"]
+        let featureNames: Set<String> = ["input_0", "input_1"]
         
-        private let input: MLMultiArray
-
-        init(input: MLMultiArray) {
-            self.input = input
+        private let a: MLMultiArray
+        private let b: MLMultiArray
+        
+        init(a: MLMultiArray, b: MLMultiArray) {
+            self.a = a
+            self.b = b
         }
         
         func featureValue(for featureName: String) -> MLFeatureValue? {
             switch featureName {
-            case "input-0":
-                return a
-            case "input-1":
-                return b
+            case "input_0":
+                return MLFeatureValue(multiArray: a)
+            case "input_1":
+                return MLFeatureValue(multiArray: b)
+            default:
+                return .none
             }
-            return .none
         }
     }
 }

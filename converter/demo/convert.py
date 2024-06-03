@@ -96,7 +96,9 @@ def convert(output_dir, filename='test-model'):
 
     print("example output: ", example_output)
 
-    save_as_json((example_input), 'example_input.json', output_dir)
+    save_as_json(a, 'example_input_a.json', output_dir)
+    save_as_json(b, 'example_input_b.json', output_dir)
+    
     save_as_json((example_output,), 'example_output.json', output_dir)
 
     traced_model = torch.jit.trace(torch_model, example_input)

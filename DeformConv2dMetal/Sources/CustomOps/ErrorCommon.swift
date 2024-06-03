@@ -31,6 +31,9 @@ public func calculateSolution222(
 ) {
     var m = __CLPK_integer(M)
     var n = __CLPK_integer(N)
+    print("M, N: ", (M, N))
+    print("A, B: ", (A, B))
+    
     var a = A
     let rightHandSideCount = 1
     let leadingDimensionB = max(M, N)
@@ -66,6 +69,7 @@ public func calculateSolution222(
     lwork = __CLPK_integer(wkopt)
     var work = [Float](repeating: 0, count: Int(lwork))
 
+    print("lwork: ", lwork)
     sgelsd_(&m, &n, &nrhs, &a, &lda, &x, &ldb, &s, &rcond, &rank, &work, &lwork,
             &iwork, &info )
     

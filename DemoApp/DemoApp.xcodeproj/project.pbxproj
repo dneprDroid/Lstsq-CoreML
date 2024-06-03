@@ -14,7 +14,6 @@
 		CE017C1D2C02380C006F4F1C /* DeformConv2dMetal in Frameworks */ = {isa = PBXBuildFile; productRef = CE017C1C2C02380C006F4F1C /* DeformConv2dMetal */; };
 		CE017C1E2C02380C006F4F1C /* DeformConv2dMetal in Embed Frameworks */ = {isa = PBXBuildFile; productRef = CE017C1C2C02380C006F4F1C /* DeformConv2dMetal */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CE017C212C023A4B006F4F1C /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C202C023A4B006F4F1C /* ViewModel.swift */; };
-		CE017C2F2C023ACA006F4F1C /* example_input.json in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2B2C023ACA006F4F1C /* example_input.json */; };
 		CE017C302C023ACA006F4F1C /* example_output.json in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2C2C023ACA006F4F1C /* example_output.json */; };
 		CE017C312C023ACA006F4F1C /* test-model.mlmodel.pb in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2D2C023ACA006F4F1C /* test-model.mlmodel.pb */; };
 		CE017C342C02483E006F4F1C /* NdArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C322C02483E006F4F1C /* NdArray.swift */; };
@@ -29,8 +28,13 @@
 		CE1DE7302C025029001E19F2 /* NdArrayUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C352C0248DD006F4F1C /* NdArrayUtil.swift */; };
 		CE1DE7312C0250EE001E19F2 /* test-model.mlmodel.pb in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2D2C023ACA006F4F1C /* test-model.mlmodel.pb */; };
 		CE1DE7322C0250F0001E19F2 /* example_output.json in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2C2C023ACA006F4F1C /* example_output.json */; };
-		CE1DE7332C025102001E19F2 /* example_input.json in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2B2C023ACA006F4F1C /* example_input.json */; };
 		CE6711662C033E4A000B5F7D /* MLModelTestWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6711652C033E4A000B5F7D /* MLModelTestWorker.swift */; };
+		CE85F4082C0E1A8300545EA7 /* test-model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CE85F4072C0E1A8300545EA7 /* test-model.mlmodel */; };
+		CE85F4092C0E1A8300545EA7 /* test-model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CE85F4072C0E1A8300545EA7 /* test-model.mlmodel */; };
+		CE85F40C2C0E1C5000545EA7 /* example_input_a.json in Resources */ = {isa = PBXBuildFile; fileRef = CE85F40A2C0E1C5000545EA7 /* example_input_a.json */; };
+		CE85F40D2C0E1C5000545EA7 /* example_input_a.json in Resources */ = {isa = PBXBuildFile; fileRef = CE85F40A2C0E1C5000545EA7 /* example_input_a.json */; };
+		CE85F40E2C0E1C5000545EA7 /* example_input_b.json in Resources */ = {isa = PBXBuildFile; fileRef = CE85F40B2C0E1C5000545EA7 /* example_input_b.json */; };
+		CE85F40F2C0E1C5000545EA7 /* example_input_b.json in Resources */ = {isa = PBXBuildFile; fileRef = CE85F40B2C0E1C5000545EA7 /* example_input_b.json */; };
 		CE9BBDA92C07A56000CA07ED /* gels-test.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9BBDA82C07A56000CA07ED /* gels-test.m */; };
 		CE9BBDAD2C07A73700CA07ED /* liblapacke-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9BBDAC2C07A73700CA07ED /* liblapacke-iOS.a */; };
 /* End PBXBuildFile section */
@@ -68,7 +72,6 @@
 		CE017C132C023794006F4F1C /* DemoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoApp.swift; sourceTree = "<group>"; };
 		CE017C1A2C0237FA006F4F1C /* DeformConv2d-Metal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "DeformConv2d-Metal"; path = ..; sourceTree = "<group>"; };
 		CE017C202C023A4B006F4F1C /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		CE017C2B2C023ACA006F4F1C /* example_input.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_input.json; sourceTree = "<group>"; };
 		CE017C2C2C023ACA006F4F1C /* example_output.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_output.json; sourceTree = "<group>"; };
 		CE017C2D2C023ACA006F4F1C /* test-model.mlmodel.pb */ = {isa = PBXFileReference; lastKnownFileType = file; path = "test-model.mlmodel.pb"; sourceTree = "<group>"; };
 		CE017C322C02483E006F4F1C /* NdArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NdArray.swift; sourceTree = "<group>"; };
@@ -79,6 +82,9 @@
 		CE1DE7212C024FA7001E19F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE1DE7262C024FA7001E19F2 /* Test_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Test_macOS.entitlements; sourceTree = "<group>"; };
 		CE6711652C033E4A000B5F7D /* MLModelTestWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModelTestWorker.swift; sourceTree = "<group>"; };
+		CE85F4072C0E1A8300545EA7 /* test-model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "test-model.mlmodel"; sourceTree = "<group>"; };
+		CE85F40A2C0E1C5000545EA7 /* example_input_a.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_input_a.json; sourceTree = "<group>"; };
+		CE85F40B2C0E1C5000545EA7 /* example_input_b.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_input_b.json; sourceTree = "<group>"; };
 		CE9BBDA72C07A55F00CA07ED /* Test-iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Test-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		CE9BBDA82C07A56000CA07ED /* gels-test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "gels-test.m"; sourceTree = "<group>"; };
 		CE9BBDAC2C07A73700CA07ED /* liblapacke-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "liblapacke-iOS.a"; sourceTree = "<group>"; };
@@ -177,8 +183,10 @@
 		CE017C2E2C023ACA006F4F1C /* generated */ = {
 			isa = PBXGroup;
 			children = (
-				CE017C2B2C023ACA006F4F1C /* example_input.json */,
+				CE85F40A2C0E1C5000545EA7 /* example_input_a.json */,
+				CE85F40B2C0E1C5000545EA7 /* example_input_b.json */,
 				CE017C2C2C023ACA006F4F1C /* example_output.json */,
+				CE85F4072C0E1A8300545EA7 /* test-model.mlmodel */,
 				CE017C2D2C023ACA006F4F1C /* test-model.mlmodel.pb */,
 			);
 			path = generated;
@@ -292,9 +300,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE017C2F2C023ACA006F4F1C /* example_input.json in Resources */,
 				CE017C172C023794006F4F1C /* Assets.xcassets in Resources */,
 				CE017C162C023794006F4F1C /* Preview Assets.xcassets in Resources */,
+				CE85F40E2C0E1C5000545EA7 /* example_input_b.json in Resources */,
+				CE85F40C2C0E1C5000545EA7 /* example_input_a.json in Resources */,
 				CE017C312C023ACA006F4F1C /* test-model.mlmodel.pb in Resources */,
 				CE017C302C023ACA006F4F1C /* example_output.json in Resources */,
 			);
@@ -304,10 +313,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE85F40F2C0E1C5000545EA7 /* example_input_b.json in Resources */,
 				CE1DE7222C024FA7001E19F2 /* Assets.xcassets in Resources */,
-				CE1DE7332C025102001E19F2 /* example_input.json in Resources */,
 				CE1DE7322C0250F0001E19F2 /* example_output.json in Resources */,
 				CE1DE7312C0250EE001E19F2 /* test-model.mlmodel.pb in Resources */,
+				CE85F40D2C0E1C5000545EA7 /* example_input_a.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE85F4082C0E1A8300545EA7 /* test-model.mlmodel in Sources */,
 				CE017C192C023794006F4F1C /* DemoApp.swift in Sources */,
 				CE017C342C02483E006F4F1C /* NdArray.swift in Sources */,
 				CE017C212C023A4B006F4F1C /* ViewModel.swift in Sources */,
@@ -337,6 +348,7 @@
 				CE1DE72F2C025027001E19F2 /* MLMultiArray+NdArray.swift in Sources */,
 				CE1DE72E2C025025001E19F2 /* NdArray.swift in Sources */,
 				CE1DE7302C025029001E19F2 /* NdArrayUtil.swift in Sources */,
+				CE85F4092C0E1A8300545EA7 /* test-model.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

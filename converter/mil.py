@@ -30,6 +30,11 @@ def torch_lstsq(context, node):
     b = inputs[1]
     driver = inputs[3]
 
+    a = mb.transpose(
+        x=a,
+        perm=[1, 0],
+    )
+
     # solution, residuals, rank, singular_values = mb.lstsq_op(
     output = mb.lstsq_op(
         a=a,

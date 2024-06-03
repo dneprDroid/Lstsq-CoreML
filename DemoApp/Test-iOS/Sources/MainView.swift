@@ -11,7 +11,11 @@ struct MainView: View {
         .padding(25)
         .onAppear {
             Task {
-                try await viewModel.test()
+                do {
+                    try await viewModel.test()
+                } catch {
+                    print("error: \(error)")
+                }
             }
         }
     }

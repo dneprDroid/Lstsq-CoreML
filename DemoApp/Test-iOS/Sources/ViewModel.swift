@@ -10,7 +10,7 @@ final class ViewModel: ObservableObject {
 
     func test() async throws {
 //        try await Task.sleep(nanoseconds: 700_000_000)
-        DispatchQueue.global().asyncAfter(deadline: .now() + 4) {
+//        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
 //            gels_test()
             let aValues: [Float] = [1, 6, 11,
                                     2, 7, 12,
@@ -23,10 +23,10 @@ final class ViewModel: ObservableObject {
             /// The _b_ in _Ax = b_.
             let bValues: [Float] = [355, 930, 1505]
             calculateSolution222(a: aValues, b: bValues, m: dimension.m, n: dimension.n)
-        }
-//        worker.onUpdateState = updateState
+//        }
+        worker.onUpdateState = updateState
 //        
-//        try await worker.test()
+        try await worker.test()
     }
     
     @MainActor private func updateState(_ newState: State) {

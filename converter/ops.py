@@ -72,7 +72,7 @@ class lstsq_op(Operation):
         dtype = self.a.dtype
         
         return types.tensor(dtype, [a_shape[-1]]), \
-            types.tensor(dtype, [0]),               \
+            types.tensor(dtype, [1]),               \
             types.tensor(dtype, [1]),               \
             types.tensor(dtype, [a_shape[-2]])
         # ))
