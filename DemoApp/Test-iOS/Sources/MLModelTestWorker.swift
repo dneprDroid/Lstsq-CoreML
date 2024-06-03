@@ -82,8 +82,11 @@ extension MLModelTestWorker {
         }
         
         func featureValue(for featureName: String) -> MLFeatureValue? {
-            if featureName == "input" {
-                return MLFeatureValue(multiArray: input)
+            switch featureName {
+            case "input-0":
+                return a
+            case "input-1":
+                return b
             }
             return .none
         }
