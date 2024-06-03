@@ -8,4 +8,16 @@ extension MLMultiArray {
         let array = [T](UnsafeBufferPointer(start: ptr, count: self.count))
         return array
     }
+    
+    func toPtr<T>(type: T.Type, reset: Bool = false) -> UnsafeMutablePointer<T> {
+        let cap = self.shape.tensorSize()
+        let pointer = self.dataPointer.bindMemory(
+            to: T.self,
+            capacity: cap
+        )
+        if reset {
+            memset(pointer, 0, cap)
+        }
+        return pointer
+    }
 }
