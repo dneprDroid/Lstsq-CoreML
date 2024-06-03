@@ -10,7 +10,7 @@ public final class LstsqLayer: NSObject, MLCustomLayer {
     
     private let driver: String
     
-    init(parameters: [String : Any]) throws {
+    public init(parameters: [String : Any]) throws {
         guard
             let driver = parameters["driver"] as? String,
             driver == "gelsd"
@@ -33,7 +33,7 @@ public final class LstsqLayer: NSObject, MLCustomLayer {
         ]
     }
     
-    func evaluate(inputs: [MLMultiArray], outputs: [MLMultiArray]) throws {
-        <#code#>
+    public func evaluate(inputs: [MLMultiArray], outputs: [MLMultiArray]) throws {
+        lstsq(inputs: inputs, outputs: outputs)
     }
 }
