@@ -27,27 +27,22 @@ final class MLModelTestWorker {
 //        defer {
 //            try? FileManager.default.removeItem(at: compiledUrl)
 //        }
-//        print("2")
 
         let configuration = MLModelConfiguration()
         configuration.computeUnits = .cpuOnly
         
         configuration.allowLowPrecisionAccumulationOnGPU = false
-        print("3")
 
 //        let model = try MLModel(contentsOf: compiledUrl, configuration: configuration)
         let model = try test_model(configuration: configuration).model
-        print("4")
 
         print("loading example inputs/outputs from JSON files...")
         
         await onUpdateState(.loadingExampleTensors)
 
-        let (exampleInputTensorA, _) = try NdArrayUtil.readTensor(resource: "example_input_a.json", type: NdArray2d.self)
-        print("5")
+        let (exampleInputTensorA, _) = try NdArrayUtil.readTensor(resource: "example_input_a.json", type: NdArray4d.self)
 
-        let (exampleInputTensorB, _) = try NdArrayUtil.readTensor(resource: "example_input_b.json", type: NdArray1d.self)
-        print("6")
+        let (exampleInputTensorB, _) = try NdArrayUtil.readTensor(resource: "example_input_b.json", type: NdArray3d.self)
 
         let (_, exampleOutputArray) = try NdArrayUtil.readTensor(resource: "example_output.json", type: NdArray2d.self)
 

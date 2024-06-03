@@ -76,6 +76,62 @@ final class NdArray4d: NdArray {
     }
 }
 
+
+final class NdArray3d: NdArray {
+    typealias TensorType = [[[Float32]]]
+    
+    var value: TensorType
+    
+    init(value: TensorType) {
+        self.value = value
+    }
+    
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        value = try container.decode(TensorType.self)
+    }
+    
+    var shape: [Int] {
+        [
+            value.count,
+            value.first?.count ?? 0,
+            value.first?.first?.count ?? 0,
+        ]
+    }
+    
+    subscript(ndIndex: [Int]) -> Float32 {
+        get {
+            validateIndex(ndIndex)
+            
+            return value[ndIndex[0]][ndIndex[1]][ndIndex[2]]
+        }
+        set {
+            validateIndex(ndIndex)
+
+            value[ndIndex[0]][ndIndex[1]][ndIndex[2]] = newValue
+        }
+    }
+    
+    func forEach(_ body: (_ ndIndex: [Int], _ value: Float32) -> Void) {
+        let shape = self.shape
+        
+        for c in 0..<shape[0] {
+            for x in 0..<shape[1] {
+                for y in 0..<shape[2] {
+                    let ndIndex = [c, x, y]
+                    let value = value[c][x][y]
+                    
+                    body(ndIndex, value)
+                }
+            }
+        }
+    }
+    
+    private func validateIndex(_ ndIndex: [Int]) {
+        guard ndIndex.count == 3 else { fatalError("Invalid index: \(ndIndex)") }
+    }
+}
+
 final class NdArray2d: NdArray {
     typealias TensorType = [[Float32]]
     

@@ -35,7 +35,6 @@
 		CE85F40D2C0E1C5000545EA7 /* example_input_a.json in Resources */ = {isa = PBXBuildFile; fileRef = CE85F40A2C0E1C5000545EA7 /* example_input_a.json */; };
 		CE85F40E2C0E1C5000545EA7 /* example_input_b.json in Resources */ = {isa = PBXBuildFile; fileRef = CE85F40B2C0E1C5000545EA7 /* example_input_b.json */; };
 		CE85F40F2C0E1C5000545EA7 /* example_input_b.json in Resources */ = {isa = PBXBuildFile; fileRef = CE85F40B2C0E1C5000545EA7 /* example_input_b.json */; };
-		CE9BBDA92C07A56000CA07ED /* gels-test.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9BBDA82C07A56000CA07ED /* gels-test.m */; };
 		CE9BBDAD2C07A73700CA07ED /* liblapacke-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9BBDAC2C07A73700CA07ED /* liblapacke-iOS.a */; };
 /* End PBXBuildFile section */
 
@@ -86,7 +85,6 @@
 		CE85F40A2C0E1C5000545EA7 /* example_input_a.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_input_a.json; sourceTree = "<group>"; };
 		CE85F40B2C0E1C5000545EA7 /* example_input_b.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_input_b.json; sourceTree = "<group>"; };
 		CE9BBDA72C07A55F00CA07ED /* Test-iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Test-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
-		CE9BBDA82C07A56000CA07ED /* gels-test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "gels-test.m"; sourceTree = "<group>"; };
 		CE9BBDAC2C07A73700CA07ED /* liblapacke-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "liblapacke-iOS.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,7 +155,6 @@
 				CE017C132C023794006F4F1C /* DemoApp.swift */,
 				CE017C122C023794006F4F1C /* MainView.swift */,
 				CE017C202C023A4B006F4F1C /* ViewModel.swift */,
-				CE9BBDA82C07A56000CA07ED /* gels-test.m */,
 				CE6711652C033E4A000B5F7D /* MLModelTestWorker.swift */,
 				CE9BBDA72C07A55F00CA07ED /* Test-iOS-Bridging-Header.h */,
 			);
@@ -335,7 +332,6 @@
 				CE017C362C0248DD006F4F1C /* NdArrayUtil.swift in Sources */,
 				CE017C382C024916006F4F1C /* MLMultiArray+NdArray.swift in Sources */,
 				CE017C182C023794006F4F1C /* MainView.swift in Sources */,
-				CE9BBDA92C07A56000CA07ED /* gels-test.m in Sources */,
 				CE6711662C033E4A000B5F7D /* MLModelTestWorker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
