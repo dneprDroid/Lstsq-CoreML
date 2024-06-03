@@ -77,7 +77,7 @@ func lstsq(inputs: [MLMultiArray], outputs: [MLMultiArray]) {
         &iwork,
         &info
     )
-    
+
     var rankFloat = Float32(rank)
     memcpy(outputs[2].dataPointer, &rankFloat, MemoryLayout<Float32>.stride)
 }
