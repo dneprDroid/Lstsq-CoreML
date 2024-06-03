@@ -88,8 +88,9 @@ def convert(output_dir, filename='test-model'):
     torch_model = TestModel()
 
     print("generating random input tensor...")
-    a = torch.tensor([1,  2,  3,  4,  5, 6,  7,  8,  9, 10, 11, 12, 13, 14, 15], dtype=torch.float32).reshape(3, 5)
-    b = torch.tensor([355, 930, 1505], dtype=torch.float32)
+    
+    a = torch.rand(3, 5).type(torch.float32)
+    b = torch.rand(3).type(torch.float32)
 
     example_input = (a, b)
     example_output = torch_model(a, b)
