@@ -2,26 +2,19 @@ import Foundation
 import CoreML
 import Accelerate
 
-private func toPtr<T>(_ array: MLMultiArray, type: T.Type, reset: Bool) -> UnsafeMutablePointer<T> {
-    let cap = array.shape.tensorSize()
-    let pointer = array.dataPointer.bindMemory(
-        to: T.self,
-        capacity: cap
-    )
-    if reset {
-        memset(pointer, 0, cap)
+extension MLMultiArray {
+    func toPtr<T>(type: T.Type, reset: Bool = false) -> UnsafeMutablePointer<T> {
+        let cap = self.shape.tensorSize()
+        let pointer = self.dataPointer.bindMemory(
+            to: T.self,
+            capacity: cap
+        )
+        if reset {
+            memset(pointer, 0, cap)
+        }
+        return pointer
     }
-    return pointer
 }
-
-func toArray<T>(_ ptr: UnsafeMutablePointer<T>, _ count: Int) -> [T] {
-    return (0..<count).map { ptr[$0] }
-}
-
-//func readInput<T>(_ array: MLMultiArray, type: T.Type) -> [T] {
-//    let (ptr, count) = toPtr(array, type: type, reset: false)
-//    return toArray(ptr, count)
-//}
 
 func lstsq(inputs: [MLMultiArray], outputs: [MLMultiArray]) {
     inputs.forEach {
@@ -32,35 +25,20 @@ func lstsq(inputs: [MLMultiArray], outputs: [MLMultiArray]) {
     }
     let shapeA = inputs[0].shape
     let shapeB = inputs[1].shape
-
-//    let A = [Float](UnsafeBufferPointer(
-//        start: inputs[0].dataPointer.bindMemory(
-//            to: Float.self,
-//            capacity: shapeA.tensorSize()
-//        ),
-//        count: shapeA.tensorSize())
-//    )
     
-    let a = toPtr(inputs[0], type: Float.self, reset: false)
-    let b = toPtr(inputs[1], type: Float32.self, reset: false)
+    
+    let a = inputs[0].toPtr(type: Float.self)
+    let b = inputs[1].toPtr(type: Float32.self)
 
     let M = shapeA[shapeA.count - 1].intValue
     let N = shapeA[shapeA.count - 2].intValue
-//    print("M, N: ", (M, N))
-//    print("A, B: ", (A, B))
 
     var m = __CLPK_integer(M)
     var n = __CLPK_integer(N)
     
-//    let rightHandSideCount = 1
-//    let leadingDimensionB = max(M, N)
-//    let xCount = Int(leadingDimensionB * rightHandSideCount)
-    
-    
-    let x = toPtr(outputs[0], type: Float32.self, reset: true) //[Float](repeating: 0, count: xCount)
+    let x = outputs[0].toPtr(type: Float32.self, reset: true)
     memcpy(x, b, MemoryLayout<Float>.stride * shapeB.tensorSize())
     
-//    int m = M, n = N, nrhs = NRHS, lda = LDA, ldb = LDB, info, lwork, rank;
     var nrhs: __CLPK_integer = 1
     var lda = m
     var ldb = n
@@ -72,27 +50,48 @@ func lstsq(inputs: [MLMultiArray], outputs: [MLMultiArray]) {
     var rcond: Float = -1.0
     var wkopt: Float = 0
     
-    var iwork = [__CLPK_integer](repeating: 0, count: 11*M)
+    var iwork = [__CLPK_integer](repeating: 0, count: 11 * M)
     
-    let s = toPtr(outputs[3], type: Float32.self, reset: true) //[Float](repeating: 0, count: Int(m));
-//    var a = [Float](repeating: 0, count: lda * n);
-//    assert(lda * n == a.count)
+    let s = outputs[3].toPtr(type: Float32.self, reset: true)
     
     lwork = -1
     
-    sgelsd_(&m, &n, &nrhs, a, &lda, x, &ldb, s, &rcond, &rank, &wkopt, &lwork,
-                    &iwork, &info )
+    sgelsd_(
+        &m,
+        &n,
+        &nrhs,
+        a,
+        &lda,
+        x,
+        &ldb,
+        s,
+        &rcond,
+        &rank,
+        &wkopt,
+        &lwork,
+        &iwork,
+        &info
+    )
     
     lwork = __CLPK_integer(wkopt)
     var work = [Float](repeating: 0, count: Int(lwork))
 
-    print("lwork: ", lwork)
-    sgelsd_(&m, &n, &nrhs, a, &lda, x, &ldb, s, &rcond, &rank, &work, &lwork,
-            &iwork, &info )
-    
-    print("solution: ", x, outputs[0].shape.tensorSize())
-    print("singular_values: ", s, outputs[3].shape.tensorSize())
-    print("rank: ", rank)
+    sgelsd_(
+        &m,
+        &n,
+        &nrhs,
+        a,
+        &lda,
+        x,
+        &ldb,
+        s,
+        &rcond,
+        &rank,
+        &work,
+        &lwork,
+        &iwork,
+        &info
+    )
     
     var rankFloat = Float(rank)
     memcpy(outputs[2].dataPointer, &rankFloat, MemoryLayout<Float>.stride)
