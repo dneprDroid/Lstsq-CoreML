@@ -27,24 +27,17 @@ class TestModel(nn.Module):
         #     result.residuals, \
         #     result.rank, \
         #     result.singular_values
-        gg_solution, residuals, rank, singular_values = torch.linalg.lstsq(a, b, driver='gelsd')
-        # print("in forward: ", solution, residuals, rank, singular_values)
-        # return solution, \
-        #     residuals, \
-        #     rank, \
-        #     singular_values
-        # return solution.flatten() + rank.flatten() + singular_values.flatten()
-        # result = torch.zeros([solution.numel()])
-        # sizeInfo = torch.zeros(4, 1)
-        # sizeInfo[0] = gg_solution.numel()
-        # sizeInfo[1] = residuals.numel()
-        # sizeInfo[2] = rank.numel()
-        # sizeInfo[3] = singular_values.numel()
+        solution, residuals, rank, singular_values = torch.linalg.lstsq(a, b, driver='gelsd')
+
+        # sizeInfo = torch.zeros(3, 1)
+        # sizeInfo[0] = solution.numel()
+        # sizeInfo[1] = rank.numel()
+        # sizeInfo[2] = singular_values.numel()
 
         return torch.cat([
             # sizeInfo.flatten(),
             
-            gg_solution.flatten(), 
+            solution.flatten(), 
             # residuals.flatten(),
             rank.flatten(), 
             singular_values.flatten()
