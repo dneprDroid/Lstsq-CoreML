@@ -25,12 +25,17 @@ public final class LstsqLayer: NSObject, MLCustomLayer {
     
     public func outputShapes(forInputShapes inputShapes: [[NSNumber]]) throws -> [[NSNumber]] {
         let shapeA = inputShapes[0]
-        return [
-            [shapeA[shapeA.count - 2]],
+        let batches = shapeA[0..<shapeA.count - 2]
+        let rankShape = batches.count == 0 ? [1] : [NSNumber](batches)
+        
+        let outShapes: [[NSNumber]] = [
+            batches + [shapeA[shapeA.count - 2]],
             [1],
-            [1],
-            [shapeA[shapeA.count - 1]],
+            rankShape,
+            batches + [shapeA[shapeA.count - 1]],
         ]
+        print("outShapes: ", outShapes)
+        return outShapes
     }
     
     public func evaluate(inputs: [MLMultiArray], outputs: [MLMultiArray]) throws {

@@ -28,6 +28,8 @@ class TestModel(nn.Module):
         #     result.rank, \
         #     result.singular_values
         solution, residuals, rank, singular_values = torch.linalg.lstsq(a, b, driver='gelsd')
+        # print(f"rank: ", rank.shape)
+        # raise f"rank: ${rank}"
 
         # sizeInfo = torch.zeros(3, 1)
         # sizeInfo[0] = solution.numel()
@@ -38,12 +40,10 @@ class TestModel(nn.Module):
             # sizeInfo.flatten(),
             
             solution.flatten(), 
-            # residuals.flatten(),
-            rank.flatten(), 
-            singular_values.flatten()
+            # # residuals.flatten(),
+            # rank.flatten(), 
+            # singular_values.flatten()
         ])
-        # return result
-
 
 
 def rm(path):
@@ -62,16 +62,6 @@ def save_as_json(tensors, filename, output_dir):
     path = os.path.join(output_dir, filename)
     with open(path, 'w') as file:
         file.write(values_str)
-"""
-inline std::tuple<Tensor, Tensor, Tensor, Tensor> lstsq(
-    const Tensor& self,
-    const Tensor& b,
-    c10::optional<double> cond,
-    c10::optional<c10::string_view> driver) {
-  return torch::linalg_lstsq(self, b, cond, driver);
-}
-
-"""
 
 def convert(output_dir, filename='test-model'):
     torch.return_types.linalg_lstsq
@@ -82,13 +72,13 @@ def convert(output_dir, filename='test-model'):
 
     print("generating random input tensor...")
     
-    a = torch.rand(1, 1, 3, 5).type(torch.float32)
-    b = torch.rand(1, 1, 3).type(torch.float32)
+    a = torch.rand(2, 4, 3, 5).type(torch.float32)
+    b = torch.rand(2, 4, 3).type(torch.float32)
 
     example_input = (a, b)
     example_output = torch_model(a, b)
 
-    print("example output: ", example_output)
+    print("example output: ", example_output.shape, example_output)
 
     save_as_json(a, 'example_input_a.json', output_dir)
     save_as_json(b, 'example_input_b.json', output_dir)

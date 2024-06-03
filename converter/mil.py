@@ -36,14 +36,15 @@ def torch_lstsq(context, node):
     perm[-2], perm[-1] = n, m 
 
     print('perm: ', perm)
-    a = mb.transpose(
+    a_transposed = mb.transpose(
         x=a,
         perm=perm,
+        name=node.name + "_transposed",
     )
 
     # solution, residuals, rank, singular_values = mb.lstsq_op(
     output = mb.lstsq_op(
-        a=a,
+        a=a_transposed,
         b=b,
         driver=driver,
         name=node.name

@@ -70,9 +70,18 @@ class lstsq_op(Operation):
         # ])
         a_shape = self.a.shape
         dtype = self.a.dtype
-        
-        return types.tensor(dtype, [a_shape[-1]]), \
+
+        batches = list(a_shape[:-2])
+        solution_shape = batches + [a_shape[-2]]
+        sing_values_shape = batches + [a_shape[-1]]
+        rank_shape = [1] if len(batches) == 0 else batches
+
+        print("solution_shape: ", solution_shape)
+        print("sing_values_shape: ", sing_values_shape)
+        print("rank_shape: ", rank_shape)
+
+        return types.tensor(dtype, solution_shape), \
             types.tensor(dtype, [1]),               \
-            types.tensor(dtype, [1]),               \
-            types.tensor(dtype, [a_shape[-2]])
+            types.tensor(dtype, rank_shape),               \
+            types.tensor(dtype, sing_values_shape)
         # ))
