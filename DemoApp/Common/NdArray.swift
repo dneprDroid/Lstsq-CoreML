@@ -12,70 +12,13 @@ enum NdArrayError: Error {
 
 protocol NdArray: Decodable {
     var shape: [Int] { get }
-        
+    
+    subscript(ndIndex: [Int]) -> Float32 { get set }
+    
     func forEach(_ body: (_ ndIndex: [Int], _ value: Float32) -> Void)
 }
 
-extension NdArray {
-    subscript(ndIndex: [Int]) -> Float32 {
-        get {
-            if let array2d = self as? NdArray2d {
-                return array2d.getElement2d(ndIndex)
-            }
-            fatalError()
-        }
-        set {
-            if var array2d = self as? NdArray2d {
-                return array2d.setElement2d(ndIndex, newValue)
-            }
-            fatalError()
-        }
-    }
-}
-
-extension NdArray2d {
-    
-    func getElement2d(_ ndIndex: [Int]) -> Float32 {
-        validateIndex(ndIndex)
-        return self[ndIndex[0]][ndIndex[1]]
-    }
-    
-    mutating func setElement2d(_ ndIndex: [Int], _ newValue: Float32) {
-        validateIndex(ndIndex)
-        self[ndIndex[0]][ndIndex[1]] = newValue
-    }
-    
-    private func validateIndex(_ ndIndex: [Int]) {
-        guard ndIndex.count == 2 else { fatalError("Invalid index: \(ndIndex)") }
-    }
-}
-
-extension NdArray2d: NdArray where Element == NdArray1d {
-    
-    private var shape4d: [Int] {
-        [
-            self.count,
-            self.first?.count ?? 0
-        ]
-    }
-    
-    
-    
-    func forEach(_ body: (_ ndIndex: [Int], _ value: Float32) -> Void) {
-        let shape = self.shape
-        
-        for x in 0..<shape[0] {
-            for y in 0..<shape[1] {
-                let ndIndex = [x, y]
-                let value = self[x][y]
-                
-                body(ndIndex, value)
-            }
-        }
-    }
-}
-
-extension NdArray4d: NdArray where Element == NdArray3d {
+extension NdArray4d: NdArray {
     
     var shape: [Int] {
         [
