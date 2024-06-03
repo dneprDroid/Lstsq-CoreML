@@ -24,15 +24,13 @@ public final class LstsqLayer: NSObject, MLCustomLayer {
     public func setWeightData(_ weights: [Data]) throws {}
     
     public func outputShapes(forInputShapes inputShapes: [[NSNumber]]) throws -> [[NSNumber]] {
-        let aShape = inputShapes[0].map { $0.intValue }
+        let shapeA = inputShapes[0]
         return [
-            [aShape[aShape.count - 2]],
+            [shapeA[shapeA.count - 2]],
             [1],
             [1],
-            [aShape[aShape.count - 1]],
-        ].map { shapes in
-            return shapes.map { NSNumber(value: $0) }
-        }
+            [shapeA[shapeA.count - 1]],
+        ]
     }
     
     public func evaluate(inputs: [MLMultiArray], outputs: [MLMultiArray]) throws {

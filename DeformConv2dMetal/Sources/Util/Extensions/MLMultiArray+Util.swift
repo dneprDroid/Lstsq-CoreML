@@ -9,7 +9,7 @@ extension MLMultiArray {
         return array
     }
     
-    func toPtr<T>(type: T.Type, reset: Bool = false) -> UnsafeMutablePointer<T> {
+    public func toPtr<T>(type: T.Type, reset: Bool = false) -> UnsafeMutablePointer<T> {
         let cap = self.shape.tensorSize()
         let pointer = self.dataPointer.bindMemory(
             to: T.self,
