@@ -20,17 +20,22 @@ enum NdArrayUtil {
         let fileData = try Data(contentsOf: url)
         let ndarray = try JSONDecoder().decode(NdArrayType.self, from: fileData)
         
-        let shape = ndarray.shape
+        let mlarray = try toMLArray(array: ndarray)
+        return (mlarray, ndarray)
+    }
+    
+    static func toMLArray<NdArrayType: NdArray>(array: NdArrayType) throws -> MLMultiArray {
+        let shape = array.shape
         
         let nsshape = shape.map { NSNumber(value: $0) }
         
         let mlarray = try MLMultiArray(shape: nsshape, dataType: .float32)
         
-        ndarray.forEach { ndIndex, value in
+        array.forEach { ndIndex, value in
             let index = ndIndex.map { NSNumber(value: $0) }
             mlarray[index] = NSNumber(value: value)
         }
-        return (mlarray, ndarray)
+        return mlarray
     }
     
     static func validate<NdArrayType: NdArray>(

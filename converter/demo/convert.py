@@ -59,13 +59,15 @@ def convert(output_dir, filename='test-model'):
 
     example_input = (a, b)
     example_output = torch_model(a, b)
+    solution, rank, singular_values = example_output
 
-    print("example output: ", [out.shape for out in example_output], example_output)
+    print("example output (solution): ", solution.shape, solution)
+    print("example output (rank): ", rank.shape, rank)
+    print("example output (singular_values): ", singular_values.shape, singular_values)
 
     save_as_json(a, 'example_input_a.json', output_dir)
     save_as_json(b, 'example_input_b.json', output_dir)
 
-    solution, rank, singular_values = example_output
     save_as_json(solution, 'example_output_solution.json', output_dir)
     save_as_json(rank, 'example_output_rank.json', output_dir)
     save_as_json(singular_values, 'example_output_singular_values.json', output_dir)

@@ -1,11 +1,6 @@
 import Foundation
 import CoreML
 
-//typealias NdArray1d = [Float32]
-//typealias NdArray2d = [[Float32]]
-//typealias NdArray3d = [[[Float32]]]
-//typealias NdArray4d = [[[[Float32]]]]
-
 enum NdArrayError: Error {
     case resNotFound
 }

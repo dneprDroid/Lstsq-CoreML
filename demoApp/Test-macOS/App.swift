@@ -42,38 +42,21 @@ class App {
 
         print("loading example inputs/outputs from JSON files...")
         
-        let (exampleInputTensorA, _) = try NdArrayUtil.readTensor(resource: "example_input_a.json", type: NdArray4d.self)
+        let (_, exampleInputA) = try NdArrayUtil.readTensor(resource: "example_input_a.json", type: NdArray4d.self)
 
-        let (exampleInputTensorB, _) = try NdArrayUtil.readTensor(resource: "example_input_b.json", type: NdArray3d.self)
+        let (_, exampleInputB) = try NdArrayUtil.readTensor(resource: "example_input_b.json", type: NdArray3d.self)
 
         let (_, exampleSolutionOutput) = try NdArrayUtil.readTensor(resource: "example_output_solution.json", type: NdArray3d.self)
         let (_, exampleRankOutput) = try NdArrayUtil.readTensor(resource: "example_output_rank.json", type: NdArray2d.self)
         let (_, exampleSingularValuesOutput) = try NdArrayUtil.readTensor(resource: "example_output_singular_values.json", type: NdArray3d.self)
-
-        let input = Input(a: exampleInputTensorA, b: exampleInputTensorB)
         
         print("loaded")
                 
-        let outputs = try model.prediction(from: input)
+        let output = try model.forward(exampleInputA, exampleInputB)
                 
-        let solutionTensor = outputs.featureValue(for: "solution")?
-            .multiArrayValue
-        let rankTensor = outputs.featureValue(for: "rank")?
-            .multiArrayValue
-        let singularValuesTensor = outputs.featureValue(for: "singular_values")?
-            .multiArrayValue
-
-        guard let solutionTensor, let rankTensor, let singularValuesTensor else {
-            fatalError("output is empty")
-        }
-
-        assert(solutionTensor.dataType == .float32)
-        assert(rankTensor.dataType == .float32)
-        assert(singularValuesTensor.dataType == .float32)
-
-        let solutionArray = solutionTensor.toNdArray3d()
-        let rankArray = rankTensor.toNdArray2d()
-        let singularValuesArray = singularValuesTensor.toNdArray3d()
+        let solutionArray = output.solution
+        let rankArray = output.rank
+        let singularValuesArray = output.singularValues
         
         print("calculated output (solution): ", solutionArray)
         print("calculated output (rank): ", rankArray)
