@@ -19,22 +19,21 @@ final class MLModelTestWorker {
     func test() async throws {
         await onUpdateState(.loadingModel)
         
-//        guard let modelUrl = Bundle.main.url(forResource: "test-model.mlmodel.pb", withExtension: nil) else {
-//            fatalError("Can't find ML model")
-//        }
-//        print("1 loading model....")
-//        let compiledUrl = try MLModel.compileModel(at: modelUrl)
-//        defer {
-//            try? FileManager.default.removeItem(at: compiledUrl)
-//        }
+        guard let modelUrl = Bundle.main.url(forResource: "test-model.mlmodel.pb", withExtension: nil) else {
+            fatalError("Can't find ML model")
+        }
+        print("loading model....")
+        let compiledUrl = try MLModel.compileModel(at: modelUrl)
+        defer {
+            try? FileManager.default.removeItem(at: compiledUrl)
+        }
 
         let configuration = MLModelConfiguration()
         configuration.computeUnits = .cpuOnly
         
         configuration.allowLowPrecisionAccumulationOnGPU = false
 
-//        let model = try MLModel(contentsOf: compiledUrl, configuration: configuration)
-        let model = try test_model(configuration: configuration).model
+        let model = try MLModel(contentsOf: compiledUrl, configuration: configuration)
 
         print("loading example inputs/outputs from JSON files...")
         
@@ -62,7 +61,6 @@ final class MLModelTestWorker {
 
         assert(output.dataType == .float32)
         
-//        let outputArray = output.toNdArray2d()
         let flattenArray = output.toFlattenArray(for: Float32.self)
         print("calculated output (flatten tensor): ", flattenArray)
         
