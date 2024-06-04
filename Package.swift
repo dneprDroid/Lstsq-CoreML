@@ -3,22 +3,22 @@
 import PackageDescription
 
 let package = Package(
-    name: "DeformConv2d-Metal",
+    name: "Lstsq-CoreML",
     platforms: [
-        .iOS(.v15),
+        .iOS(.v14),
         .macOS("11.0")
     ],
     products: [
         .library(
-            name: "DeformConv2dMetal",
+            name: "LstsqCoreML",
             type: .dynamic,
-            targets: ["DeformConv2dMetal"]
+            targets: ["LstsqCoreML"]
         ),
     ],
     targets: [
         .target(
-            name: "DeformConv2dMetal",
-            path: "DeformConv2dMetal"
+            name: "LstsqCoreML",
+            path: "LstsqCoreML"
         )
     ]
 )

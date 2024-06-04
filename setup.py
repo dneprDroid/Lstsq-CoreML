@@ -1,22 +1,20 @@
-# python3 -m pip install git+ssh://git@github.com/dneprDroid/DeformConv2d-Metal.git
 from setuptools import find_packages, setup
 
-name = "DeformConv2dConvert"
+name = "LstsqConvert"
 version = "0.0.1"
 
 setup(
     name=name,
     version=version,
-    description="CoreML converter for torchvision.ops.deform_conv2d",
-    url="https://github.com/dneprDroid/DeformConv2d-Metal",
+    description="CoreML converter for torch.linalg.lstsq",
+    url="https://github.com/dneprDroid/Lstsq-CoreML",
     author="dneprDroid",
     author_email="no@email.com",
-    packages=['DeformConv2dConvert'],
-    package_dir={'DeformConv2dConvert': 'converter'},
+    packages=['LstsqConvert'],
+    package_dir={'LstsqConvert': 'converter'},
     install_requires=[
         "coremltools",
         "torch",
-        "torchvision",
     ],
     python_requires=">=3.5.10",
 )

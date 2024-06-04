@@ -11,8 +11,6 @@
 		CE017C172C023794006F4F1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE017C102C023794006F4F1C /* Assets.xcassets */; };
 		CE017C182C023794006F4F1C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C122C023794006F4F1C /* MainView.swift */; };
 		CE017C192C023794006F4F1C /* DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C132C023794006F4F1C /* DemoApp.swift */; };
-		CE017C1D2C02380C006F4F1C /* DeformConv2dMetal in Frameworks */ = {isa = PBXBuildFile; productRef = CE017C1C2C02380C006F4F1C /* DeformConv2dMetal */; };
-		CE017C1E2C02380C006F4F1C /* DeformConv2dMetal in Embed Frameworks */ = {isa = PBXBuildFile; productRef = CE017C1C2C02380C006F4F1C /* DeformConv2dMetal */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CE017C212C023A4B006F4F1C /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C202C023A4B006F4F1C /* ViewModel.swift */; };
 		CE017C302C023ACA006F4F1C /* example_output.json in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2C2C023ACA006F4F1C /* example_output.json */; };
 		CE017C312C023ACA006F4F1C /* test-model.mlmodel.pb in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2D2C023ACA006F4F1C /* test-model.mlmodel.pb */; };
@@ -21,13 +19,15 @@
 		CE017C382C024916006F4F1C /* MLMultiArray+NdArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C372C024916006F4F1C /* MLMultiArray+NdArray.swift */; };
 		CE1DE71E2C024FA5001E19F2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1DE71D2C024FA5001E19F2 /* App.swift */; };
 		CE1DE7222C024FA7001E19F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1DE7212C024FA7001E19F2 /* Assets.xcassets */; };
-		CE1DE72B2C025016001E19F2 /* DeformConv2dMetal in Frameworks */ = {isa = PBXBuildFile; productRef = CE1DE72A2C025016001E19F2 /* DeformConv2dMetal */; };
-		CE1DE72C2C025016001E19F2 /* DeformConv2dMetal in Embed Frameworks */ = {isa = PBXBuildFile; productRef = CE1DE72A2C025016001E19F2 /* DeformConv2dMetal */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CE1DE72E2C025025001E19F2 /* NdArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C322C02483E006F4F1C /* NdArray.swift */; };
 		CE1DE72F2C025027001E19F2 /* MLMultiArray+NdArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C372C024916006F4F1C /* MLMultiArray+NdArray.swift */; };
 		CE1DE7302C025029001E19F2 /* NdArrayUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C352C0248DD006F4F1C /* NdArrayUtil.swift */; };
 		CE1DE7312C0250EE001E19F2 /* test-model.mlmodel.pb in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2D2C023ACA006F4F1C /* test-model.mlmodel.pb */; };
 		CE1DE7322C0250F0001E19F2 /* example_output.json in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2C2C023ACA006F4F1C /* example_output.json */; };
+		CE527FFB2C0F556400C3362A /* LstsqCoreML in Frameworks */ = {isa = PBXBuildFile; productRef = CE527FFA2C0F556400C3362A /* LstsqCoreML */; };
+		CE527FFC2C0F556400C3362A /* LstsqCoreML in Embed Frameworks */ = {isa = PBXBuildFile; productRef = CE527FFA2C0F556400C3362A /* LstsqCoreML */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CE527FFE2C0F556B00C3362A /* LstsqCoreML in Frameworks */ = {isa = PBXBuildFile; productRef = CE527FFD2C0F556B00C3362A /* LstsqCoreML */; };
+		CE527FFF2C0F556B00C3362A /* LstsqCoreML in Embed Frameworks */ = {isa = PBXBuildFile; productRef = CE527FFD2C0F556B00C3362A /* LstsqCoreML */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CE6711662C033E4A000B5F7D /* MLModelTestWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6711652C033E4A000B5F7D /* MLModelTestWorker.swift */; };
 		CE85F4082C0E1A8300545EA7 /* test-model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CE85F4072C0E1A8300545EA7 /* test-model.mlmodel */; };
 		CE85F4092C0E1A8300545EA7 /* test-model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CE85F4072C0E1A8300545EA7 /* test-model.mlmodel */; };
@@ -35,7 +35,6 @@
 		CE85F40D2C0E1C5000545EA7 /* example_input_a.json in Resources */ = {isa = PBXBuildFile; fileRef = CE85F40A2C0E1C5000545EA7 /* example_input_a.json */; };
 		CE85F40E2C0E1C5000545EA7 /* example_input_b.json in Resources */ = {isa = PBXBuildFile; fileRef = CE85F40B2C0E1C5000545EA7 /* example_input_b.json */; };
 		CE85F40F2C0E1C5000545EA7 /* example_input_b.json in Resources */ = {isa = PBXBuildFile; fileRef = CE85F40B2C0E1C5000545EA7 /* example_input_b.json */; };
-		CE9BBDAD2C07A73700CA07ED /* liblapacke-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9BBDAC2C07A73700CA07ED /* liblapacke-iOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,7 +44,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CE017C1E2C02380C006F4F1C /* DeformConv2dMetal in Embed Frameworks */,
+				CE527FFF2C0F556B00C3362A /* LstsqCoreML in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,7 +55,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CE1DE72C2C025016001E19F2 /* DeformConv2dMetal in Embed Frameworks */,
+				CE527FFC2C0F556400C3362A /* LstsqCoreML in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -69,7 +68,6 @@
 		CE017C102C023794006F4F1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE017C122C023794006F4F1C /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		CE017C132C023794006F4F1C /* DemoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoApp.swift; sourceTree = "<group>"; };
-		CE017C1A2C0237FA006F4F1C /* DeformConv2d-Metal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "DeformConv2d-Metal"; path = ..; sourceTree = "<group>"; };
 		CE017C202C023A4B006F4F1C /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		CE017C2C2C023ACA006F4F1C /* example_output.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_output.json; sourceTree = "<group>"; };
 		CE017C2D2C023ACA006F4F1C /* test-model.mlmodel.pb */ = {isa = PBXFileReference; lastKnownFileType = file; path = "test-model.mlmodel.pb"; sourceTree = "<group>"; };
@@ -80,6 +78,7 @@
 		CE1DE71D2C024FA5001E19F2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE1DE7212C024FA7001E19F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE1DE7262C024FA7001E19F2 /* Test_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Test_macOS.entitlements; sourceTree = "<group>"; };
+		CE527FF92C0F555100C3362A /* Lstsq-CoreML */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "Lstsq-CoreML"; path = ..; sourceTree = "<group>"; };
 		CE6711652C033E4A000B5F7D /* MLModelTestWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModelTestWorker.swift; sourceTree = "<group>"; };
 		CE85F4072C0E1A8300545EA7 /* test-model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "test-model.mlmodel"; sourceTree = "<group>"; };
 		CE85F40A2C0E1C5000545EA7 /* example_input_a.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_input_a.json; sourceTree = "<group>"; };
@@ -93,8 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE017C1D2C02380C006F4F1C /* DeformConv2dMetal in Frameworks */,
-				CE9BBDAD2C07A73700CA07ED /* liblapacke-iOS.a in Frameworks */,
+				CE527FFE2C0F556B00C3362A /* LstsqCoreML in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE1DE72B2C025016001E19F2 /* DeformConv2dMetal in Frameworks */,
+				CE527FFB2C0F556400C3362A /* LstsqCoreML in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,7 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				CE9BBDAC2C07A73700CA07ED /* liblapacke-iOS.a */,
-				CE017C1A2C0237FA006F4F1C /* DeformConv2d-Metal */,
+				CE527FF92C0F555100C3362A /* Lstsq-CoreML */,
 				CE017C152C023794006F4F1C /* Test-iOS */,
 				CE017C332C02483E006F4F1C /* Common */,
 				CE1DE71C2C024FA5001E19F2 /* Test-macOS */,
@@ -227,7 +225,7 @@
 			);
 			name = "Test-iOS";
 			packageProductDependencies = (
-				CE017C1C2C02380C006F4F1C /* DeformConv2dMetal */,
+				CE527FFD2C0F556B00C3362A /* LstsqCoreML */,
 			);
 			productName = DemoApp;
 			productReference = CE017BDE2C0235D3006F4F1C /* Test-iOS.app */;
@@ -248,7 +246,7 @@
 			);
 			name = "Test-macOS";
 			packageProductDependencies = (
-				CE1DE72A2C025016001E19F2 /* DeformConv2dMetal */,
+				CE527FFA2C0F556400C3362A /* LstsqCoreML */,
 			);
 			productName = "Test-macOS";
 			productReference = CE1DE71B2C024FA5001E19F2 /* Test-macOS.app */;
@@ -634,13 +632,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CE017C1C2C02380C006F4F1C /* DeformConv2dMetal */ = {
+		CE527FFA2C0F556400C3362A /* LstsqCoreML */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = DeformConv2dMetal;
+			productName = LstsqCoreML;
 		};
-		CE1DE72A2C025016001E19F2 /* DeformConv2dMetal */ = {
+		CE527FFD2C0F556B00C3362A /* LstsqCoreML */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = DeformConv2dMetal;
+			productName = LstsqCoreML;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

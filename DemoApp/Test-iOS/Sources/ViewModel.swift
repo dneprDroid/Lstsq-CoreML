@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import DeformConv2dMetal
 
 final class ViewModel: ObservableObject {
     

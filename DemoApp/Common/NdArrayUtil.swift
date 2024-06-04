@@ -46,7 +46,7 @@ enum NdArrayUtil {
             let expectedValue = expected[ndIndex]
             
             let diff = abs(actualValue - expectedValue)
-//            assert(diff < precision)
+            assert(diff < precision)
             maxDiff = max(maxDiff, diff)
         }
         let isOk = maxDiff < precision

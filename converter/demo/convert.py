@@ -40,9 +40,9 @@ class TestModel(nn.Module):
             # sizeInfo.flatten(),
             
             solution.flatten(), 
-            # # residuals.flatten(),
-            # rank.flatten(), 
-            # singular_values.flatten()
+            # residuals.flatten(),
+            rank.flatten(), 
+            singular_values.flatten()
         ])
 
 

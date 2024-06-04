@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 import CoreML
-import DeformConv2dMetal
+import LstsqCoreML
 
 enum State {
     case initial
