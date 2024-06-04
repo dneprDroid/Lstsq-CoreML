@@ -22,26 +22,12 @@ from .. import register_op
 class TestModel(nn.Module):
 
     def forward(self, a, b):
-        # result = torch.linalg.lstsq(a, b, driver='gelsd')
-        # return result.solution, \
-        #     result.residuals, \
-        #     result.rank, \
-        #     result.singular_values
-        solution, residuals, rank, singular_values = torch.linalg.lstsq(a, b, driver='gelsd')
-        # print(f"rank: ", rank.shape)
-        # raise f"rank: ${rank}"
-
-        # sizeInfo = torch.zeros(3, 1)
-        # sizeInfo[0] = solution.numel()
-        # sizeInfo[1] = rank.numel()
-        # sizeInfo[2] = singular_values.numel()
+        solution, residuals, rank, singular_values = torch.linalg.lstsq(
+            a, b, driver='gelsd')
 
         return torch.cat([
-            # sizeInfo.flatten(),
-            
-            solution.flatten(), 
-            # residuals.flatten(),
-            rank.flatten(), 
+            solution.flatten(),
+            rank.flatten(),
             singular_values.flatten()
         ])
 
@@ -63,15 +49,16 @@ def save_as_json(tensors, filename, output_dir):
     with open(path, 'w') as file:
         file.write(values_str)
 
+
 def convert(output_dir, filename='test-model'):
-    torch.return_types.linalg_lstsq
+    register_op()
 
     output_path = os.path.join(output_dir, filename)
 
     torch_model = TestModel()
 
-    print("generating random input tensor...")
-    
+    print("generating random input tensors...")
+
     a = torch.rand(2, 4, 3, 5).type(torch.float32)
     b = torch.rand(2, 4, 3).type(torch.float32)
 
@@ -82,7 +69,7 @@ def convert(output_dir, filename='test-model'):
 
     save_as_json(a, 'example_input_a.json', output_dir)
     save_as_json(b, 'example_input_b.json', output_dir)
-    
+
     save_as_json((example_output,), 'example_output.json', output_dir)
 
     traced_model = torch.jit.trace(torch_model, example_input)
@@ -102,8 +89,6 @@ def convert(output_dir, filename='test-model'):
             name=output_name
         )
     ]
-    print("mil_inputs: ", mil_inputs)
-    print("mil_outputs: ", mil_outputs)
 
     mlmodel = coremltools.convert(
         traced_model,
@@ -127,9 +112,7 @@ def convert(output_dir, filename='test-model'):
 
 
 def main():
-    register_op()
-
     current_dir = os.path.dirname(os.path.realpath(__file__))
-    out_dir_path = os.path.join(current_dir, "../../DemoApp/generated")
+    out_dir_path = os.path.join(current_dir, "../../demoApp/generated")
     out_dir_path = os.path.abspath(out_dir_path)
     convert(out_dir_path)
