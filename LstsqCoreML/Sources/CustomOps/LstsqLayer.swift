@@ -3,6 +3,7 @@ import CoreML
 
 public enum LstsqLayerError: Error {
     case invalidDriver
+    case invalidDataType
 }
 
 @objc(dneprDroid_lstsq)
@@ -28,17 +29,15 @@ public final class LstsqLayer: NSObject, MLCustomLayer {
         let batches = shapeA[0..<shapeA.count - 2]
         let rankShape = batches.count == 0 ? [1] : [NSNumber](batches)
         
-        let outShapes: [[NSNumber]] = [
+        return [
             batches + [shapeA[shapeA.count - 2]],
             [1],
             rankShape,
             batches + [shapeA[shapeA.count - 1]],
         ]
-        print("outShapes: ", outShapes)
-        return outShapes
     }
     
     public func evaluate(inputs: [MLMultiArray], outputs: [MLMultiArray]) throws {
-        lstsq(inputs: inputs, outputs: outputs)
+        try lstsq(inputs: inputs, outputs: outputs)
     }
 }

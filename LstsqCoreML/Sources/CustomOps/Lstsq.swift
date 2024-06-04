@@ -2,13 +2,9 @@ import Foundation
 import CoreML
 import Accelerate
 
-func lstsq(inputs: [MLMultiArray], outputs: [MLMultiArray]) {
-    inputs.forEach {
-        assert($0.dataType == .float32)
-    }
-    outputs.forEach {
-        assert($0.dataType == .float32)
-    }
+func lstsq(inputs: [MLMultiArray], outputs: [MLMultiArray]) throws {
+    try validate(inputs: inputs, outputs: outputs)
+    
     let shapeA = inputs[0].shape
     
     let aBatched = inputs[0].toPtr(type: Float32.self)
@@ -25,9 +21,7 @@ func lstsq(inputs: [MLMultiArray], outputs: [MLMultiArray]) {
     var n = Int32(N)
     
     let batchSize = shapeA.tensorSize() / (M * N)
-    
-//    assert(M < N)
-    
+        
     for bIndex in 0..<batchSize {
         
         let a = aBatched.advanced(by: bIndex * M * N)
@@ -96,5 +90,18 @@ func lstsq(inputs: [MLMultiArray], outputs: [MLMultiArray]) {
         memcpy(rankPtr, &rankFloat, MemoryLayout<Float32>.stride)
         
         memcpy(xBatched.advanced(by: bIndex * x.count), &x, x.count * MemoryLayout<Float32>.stride)
+    }
+}
+
+private func validate(inputs: [MLMultiArray], outputs: [MLMultiArray]) throws {
+    try inputs.forEach {
+        if $0.dataType != .float32 {
+            throw LstsqLayerError.invalidDataType
+        }
+    }
+    try outputs.forEach {
+        if $0.dataType != .float32 {
+            throw LstsqLayerError.invalidDataType
+        }
     }
 }
