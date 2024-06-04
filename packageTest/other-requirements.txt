@@ -1,3 +1,0 @@
-coremltools>=7.1
-
-LstsqConvert @ git+https://github.com/dneprDroid/Lstsq-CoreML.git
