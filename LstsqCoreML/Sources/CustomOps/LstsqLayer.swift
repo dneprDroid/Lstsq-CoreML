@@ -31,7 +31,7 @@ public final class LstsqLayer: NSObject, MLCustomLayer {
         
         return [
             batches + [shapeA[shapeA.count - 2]],
-            [1],
+            [],
             rankShape,
             batches + [shapeA[shapeA.count - 1]],
         ]

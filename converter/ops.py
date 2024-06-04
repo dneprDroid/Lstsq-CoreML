@@ -48,6 +48,6 @@ class lstsq_op(Operation):
         rank_shape = [1] if len(batches) == 0 else batches
 
         return types.tensor(dtype, solution_shape),        \
-            types.tensor(dtype, [1]),                      \
+            types.tensor(dtype, []),                      \
             types.tensor(dtype, rank_shape),               \
             types.tensor(dtype, sing_values_shape)
