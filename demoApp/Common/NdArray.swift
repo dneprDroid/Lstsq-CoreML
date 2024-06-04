@@ -10,7 +10,7 @@ enum NdArrayError: Error {
     case resNotFound
 }
 
-protocol NdArray: Decodable {
+protocol NdArray: Decodable, CustomDebugStringConvertible {
     var shape: [Int] { get }
     
     subscript(ndIndex: [Int]) -> Float32 { get set }
@@ -22,6 +22,8 @@ final class NdArray4d: NdArray {
     typealias TensorType = [[[[Float32]]]]
     
     var value: TensorType
+    
+    var debugDescription: String { value.debugDescription }
     
     init(value: TensorType) {
         self.value = value
@@ -82,6 +84,8 @@ final class NdArray3d: NdArray {
     
     var value: TensorType
     
+    var debugDescription: String { value.debugDescription }
+    
     init(value: TensorType) {
         self.value = value
     }
@@ -137,6 +141,8 @@ final class NdArray2d: NdArray {
     
     var value: TensorType
     
+    var debugDescription: String { value.debugDescription }
+    
     init(value: TensorType) {
         self.value = value
     }
@@ -188,6 +194,8 @@ final class NdArray1d: NdArray {
     typealias TensorType = [Float32]
     
     var value: TensorType
+    
+    var debugDescription: String { value.debugDescription }
     
     init(value: TensorType) {
         self.value = value

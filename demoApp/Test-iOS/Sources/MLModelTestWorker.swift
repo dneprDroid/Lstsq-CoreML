@@ -43,7 +43,9 @@ final class MLModelTestWorker {
 
         let (exampleInputTensorB, _) = try NdArrayUtil.readTensor(resource: "example_input_b.json", type: NdArray3d.self)
 
-        let (_, exampleOutputArray) = try NdArrayUtil.readTensor(resource: "example_output.json", type: NdArray2d.self)
+        let (_, exampleSolutionOutput) = try NdArrayUtil.readTensor(resource: "example_output_solution.json", type: NdArray3d.self)
+        let (_, exampleRankOutput) = try NdArrayUtil.readTensor(resource: "example_output_rank.json", type: NdArray2d.self)
+        let (_, exampleSingularValuesOutput) = try NdArrayUtil.readTensor(resource: "example_output_singular_values.json", type: NdArray3d.self)
 
         let input = Input(a: exampleInputTensorA, b: exampleInputTensorB)
         
@@ -51,23 +53,46 @@ final class MLModelTestWorker {
         
         await onUpdateState(.runningModel)
         
-        let output = try model.prediction(from: input)
-            .featureValue(for: "output")?
-            .multiArrayValue
+        let outputs = try model.prediction(from: input)
         
         await onUpdateState(.validation)
-
-        guard let output else { fatalError("output is empty") }
-
-        assert(output.dataType == .float32)
         
-        let flattenArray = output.toFlattenArray(for: Float32.self)
-        print("calculated output (flatten tensor): ", flattenArray)
+        let solutionTensor = outputs.featureValue(for: "solution")?
+            .multiArrayValue
+        let rankTensor = outputs.featureValue(for: "rank")?
+            .multiArrayValue
+        let singularValuesTensor = outputs.featureValue(for: "singular_values")?
+            .multiArrayValue
+
+        guard let solutionTensor, let rankTensor, let singularValuesTensor else {
+            fatalError("output is empty")
+        }
+
+        assert(solutionTensor.dataType == .float32)
+        assert(rankTensor.dataType == .float32)
+        assert(singularValuesTensor.dataType == .float32)
+
+        let solutionArray = solutionTensor.toNdArray3d()
+        let rankArray = rankTensor.toNdArray2d()
+        let singularValuesArray = singularValuesTensor.toNdArray3d()
         
-        let isOk = NdArrayUtil.validate(
-            actual: .init(value: [flattenArray]),
-            expected: exampleOutputArray
+        print("calculated output (solution): ", solutionArray)
+        print("calculated output (rank): ", rankArray)
+        print("calculated output (singular_values): ", singularValuesArray)
+
+        let isSolutionValid = NdArrayUtil.validate(
+            actual: solutionArray,
+            expected: exampleSolutionOutput
         )
+        let isRankValid = NdArrayUtil.validate(
+            actual: rankArray,
+            expected: exampleRankOutput
+        )
+        let isSingularValuesValid = NdArrayUtil.validate(
+            actual: singularValuesArray,
+            expected: exampleSingularValuesOutput
+        )
+        let isOk = isSolutionValid && isRankValid && isSingularValuesValid
         await onUpdateState(.completed(ok: isOk))
     }
 }
@@ -76,7 +101,7 @@ extension MLModelTestWorker {
 
     final class Input: MLFeatureProvider {
         
-        let featureNames: Set<String> = ["input_0", "input_1"]
+        let featureNames: Set<String> = ["a", "b"]
         
         private let a: MLMultiArray
         private let b: MLMultiArray
@@ -88,9 +113,9 @@ extension MLModelTestWorker {
         
         func featureValue(for featureName: String) -> MLFeatureValue? {
             switch featureName {
-            case "input_0":
+            case "a":
                 return MLFeatureValue(multiArray: a)
-            case "input_1":
+            case "b":
                 return MLFeatureValue(multiArray: b)
             default:
                 return .none

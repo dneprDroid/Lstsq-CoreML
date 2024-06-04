@@ -25,12 +25,7 @@ class TestModel(nn.Module):
         solution, residuals, rank, singular_values = torch.linalg.lstsq(
             a, b, driver='gelsd')
 
-        return torch.cat([
-            solution.flatten(),
-            rank.flatten(),
-            singular_values.flatten()
-        ])
-
+        return solution, rank, singular_values
 
 def rm(path):
     if not os.path.exists(path):
@@ -65,29 +60,33 @@ def convert(output_dir, filename='test-model'):
     example_input = (a, b)
     example_output = torch_model(a, b)
 
-    print("example output: ", example_output.shape, example_output)
+    print("example output: ", [out.shape for out in example_output], example_output)
 
     save_as_json(a, 'example_input_a.json', output_dir)
     save_as_json(b, 'example_input_b.json', output_dir)
 
-    save_as_json((example_output,), 'example_output.json', output_dir)
+    solution, rank, singular_values = example_output
+    save_as_json(solution, 'example_output_solution.json', output_dir)
+    save_as_json(rank, 'example_output_rank.json', output_dir)
+    save_as_json(singular_values, 'example_output_singular_values.json', output_dir)
 
     traced_model = torch.jit.trace(torch_model, example_input)
 
-    input_name = "input"
-    output_name = "output"
+    input_names = ["a", "b"]
+    output_names = ["solution", "rank", "singular_values"]
 
     mil_inputs = [
         coremltools.TensorType(
-            name="%s-%i" % (input_name, input_index),
+            name=input_names[input_index],
             shape=(x.shape)
         )
         for input_index, x in enumerate(example_input)
     ]
     mil_outputs = [
         coremltools.TensorType(
-            name=output_name
+            name=output_names[out_index]
         )
+        for out_index, x in enumerate(example_output)
     ]
 
     mlmodel = coremltools.convert(
