@@ -84,7 +84,6 @@
 		CE85F40A2C0E1C5000545EA7 /* example_input_a.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_input_a.json; sourceTree = "<group>"; };
 		CE85F40B2C0E1C5000545EA7 /* example_input_b.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_input_b.json; sourceTree = "<group>"; };
 		CE9BBDA72C07A55F00CA07ED /* Test-iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Test-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
-		CE9BBDAC2C07A73700CA07ED /* liblapacke-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "liblapacke-iOS.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +109,6 @@
 		CE017BD52C0235D3006F4F1C = {
 			isa = PBXGroup;
 			children = (
-				CE9BBDAC2C07A73700CA07ED /* liblapacke-iOS.a */,
 				CE527FF92C0F555100C3362A /* Lstsq-CoreML */,
 				CE017C152C023794006F4F1C /* Test-iOS */,
 				CE017C332C02483E006F4F1C /* Common */,
