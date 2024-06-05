@@ -77,10 +77,27 @@ def convert(output_dir, filename='test-model'):
     input_names = ["a", "b"]
     output_names = ["solution", "rank", "singular_values"]
 
+    a_shape = coremltools.Shape(
+        shape=(
+            coremltools.RangeDim(lower_bound=1, upper_bound=100, default=1),
+            coremltools.RangeDim(lower_bound=1, upper_bound=100, default=1),
+            coremltools.RangeDim(lower_bound=1, upper_bound=100, default=1),
+            coremltools.RangeDim(lower_bound=2, upper_bound=100, default=2),
+        )
+    )
+    b_shape = coremltools.Shape(
+        shape=(
+            coremltools.RangeDim(lower_bound=1, upper_bound=100, default=1),
+            coremltools.RangeDim(lower_bound=1, upper_bound=100, default=1),
+            coremltools.RangeDim(lower_bound=1, upper_bound=100, default=1),
+        )
+    )
+    input_shapes = [a_shape, b_shape]
+
     mil_inputs = [
         coremltools.TensorType(
             name=input_names[input_index],
-            shape=(x.shape)
+            shape=input_shapes[input_index]
         )
         for input_index, x in enumerate(example_input)
     ]

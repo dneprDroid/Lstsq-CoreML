@@ -27,13 +27,15 @@ public final class LstsqLayer: NSObject, MLCustomLayer {
     public func outputShapes(forInputShapes inputShapes: [[NSNumber]]) throws -> [[NSNumber]] {
         let shapeA = inputShapes[0]
         let batches = shapeA[0..<shapeA.count - 2]
-        let rankShape = batches.count == 0 ? [1] : [NSNumber](batches)
         
+        let rankShape: [NSNumber] = batches.count == 0 ? [1] : [NSNumber](batches)
+        let solutionShape: [NSNumber] = batches + [shapeA[shapeA.count - 2]]
+        let singValuesShape: [NSNumber] = batches + [shapeA[shapeA.count - 1]]
         return [
-            batches + [shapeA[shapeA.count - 2]],
+            solutionShape,
             [],
             rankShape,
-            batches + [shapeA[shapeA.count - 1]],
+            singValuesShape,
         ]
     }
     

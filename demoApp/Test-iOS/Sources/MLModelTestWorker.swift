@@ -28,12 +28,7 @@ final class MLModelTestWorker {
             try? FileManager.default.removeItem(at: compiledUrl)
         }
 
-        let configuration = MLModelConfiguration()
-        configuration.computeUnits = .cpuOnly
-        
-        configuration.allowLowPrecisionAccumulationOnGPU = false
-
-        let model = try MLModel(contentsOf: compiledUrl, configuration: configuration)
+        let model = try MLModel(contentsOf: compiledUrl)
 
         print("loading example inputs/outputs from JSON files...")
         
@@ -50,6 +45,24 @@ final class MLModelTestWorker {
         print("loaded")
         
         await onUpdateState(.runningModel)
+                 
+//        let a = [
+//            [1.0,  2.0,  3.0,  4.0,  5.0],
+//            [6.0,  7.0,  8.0,  9.0, 10.0],
+//            [11.0, 12.0, 13.0, 14.0, 15.0]
+//        ]
+//        let b = [ 355.0,  930.0, 1505.0]
+//
+//        let testOutput = try model.forward(a, b)
+//        
+//        print("\ntestOutput:\n\(testOutput)\n")
+//        
+//        /*
+//         testOutput: 
+//         solution=[21.000021, 22.00001, 23.000002, 23.999989, 24.99998],
+//         rank=2.0,
+//         singular_values=[35.127224, 2.465397, 5.823978e-07]
+//         */
         
         let output = try model.forward(exampleInputA, exampleInputB)
         
