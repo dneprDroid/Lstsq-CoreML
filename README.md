@@ -30,7 +30,7 @@ and compares the calculated CoreML output tensor with the PyTorch example output
 ![Screenshot 2024-06-05 at 14 26 11](https://github.com/dneprDroid/Lstsq-CoreML/assets/13742733/a5ed0da5-9151-47e9-8df5-cc325fb1ab67)
 
 
-or:
+or
 
 in Python:
 
