@@ -12,8 +12,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from torchvision.ops.deform_conv import deform_conv2d
-
 import coremltools
 
 from .. import register_op
