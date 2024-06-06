@@ -56,7 +56,7 @@ print(result)
 
 ```
 
-in Swift:
+in [Swift](https://github.com/dneprDroid/Lstsq-CoreML/blob/af5c47f5795286db401888e73606ac0dc57a1973/demoApp/Test-iOS/Sources/MLModelTestWorker.swift#L56):
 
 ```swift 
 
